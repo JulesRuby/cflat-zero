@@ -6,15 +6,15 @@
         // Let's see if I can begin abtracting a validator function to make these do...while loops a bit easier to look at and code. 
         public static bool validateInterger (string userInput, out int value)
         {
-            if (int.TryParse(userInput, out value) && value > 0)
-            {
-                return true;
-            } else
-            {
-                return false;
-            }
+            //if (int.TryParse(userInput, out value) && value > 0)
+            //{
+            //    return true;
+            //} else
+            //{
+            //    return false;
+            //}
 
-            //int.TryParse(userInput, out value) && value > 0 ? true : false;
+            return int.TryParse(userInput, out value) && value > 0 ? true : false;
         }
         
 
