@@ -1,10 +1,12 @@
-﻿namespace Lab0ConsoleApp
+﻿
+
+namespace Lab0ConsoleApp
 {
     internal class Program
     {
 
         // Let's see if I can begin abtracting a validator function to make these do...while loops a bit easier to look at and code. 
-        public static bool validateInterger (string userInput, out int value)
+        public static bool validateInterger(string userInput, out int value)
         {
             // Yay ternary!
             return int.TryParse(userInput, out value) && value > 0 ? true : false;
@@ -13,9 +15,6 @@
         // Try to make a function to generate an array fom the positiveIntergers[] used later
         static int[] fillSequenceArray(params int[] positiveIntegers)
         {
-            Console.WriteLine(positiveIntegers[0]);
-            Console.WriteLine(positiveIntegers[1]);
-
             // calculate the difference + 1 to include all numbers
             int calculatedRange = positiveIntegers[1] - positiveIntegers[0] + 1;
             // declare an array of length = calculatedDifference
@@ -27,12 +26,30 @@
                 sequenceArray[i] = positiveIntegers[0] + i;
             }
 
-            Console.WriteLine(string.Join(", ", sequenceArray));
-            
-
             return sequenceArray;
         }
-        
+
+        static void writeReverseSequenceFile(int[] sequence, string filePath = "numbers.txt")
+        {
+            // I want to use foreach forFUN so I'm just doing this instead of counting backward through a standard for loop
+            Array.Reverse(sequence);
+
+
+            using(StreamWriter writer = new StreamWriter(filePath)) {
+                foreach (int number in sequence)
+                {
+                    writer.WriteLine(number);
+                    // NOTE I guess this saves to the project bin\Debug\net8.0 folder but I have another assignment due soon so I will ahve to be satsfied with this.
+                }
+
+            }
+
+            // Seems like Array.reverse is destructive, so now we'll undo that in case I needed the original later or something SO WORTH THE TECH DEBT
+            Array.Reverse(sequence);
+
+            Console.WriteLine($"Sequence has been reversed and written to filename {filePath}");
+        }
+
 
 
 
@@ -44,7 +61,7 @@
             int lowInt;
             int highInt;
             bool passIntCheck;
-           
+
             Console.WriteLine("Welcome to this really cool, sexy and popular program!\n\n");
             Console.Write("Enter a low number: ");
 
@@ -101,7 +118,8 @@
                 {
                     positiveIntegers[0] = positiveInteger;
                     isPosInt = true;
-                } else
+                }
+                else
                 {
                     Console.WriteLine("Your input must be a valid integer and also positive!");
                 }
@@ -126,7 +144,7 @@
                 }
 
                 positiveIntegers[1] = positiveInteger;
-                
+
                 if (positiveIntegers[1] <= positiveIntegers[0])
                 {
                     Console.WriteLine("Your integer must be of higher value than your input from the previous step!");
@@ -139,9 +157,12 @@
             } while (!isPosInt || !isHigherThanLow);
 
 
-            int[] test = fillSequenceArray(positiveIntegers);
+            int[] sequenceArray = fillSequenceArray(positiveIntegers);
 
-            Console.WriteLine("checked thing");
+            writeReverseSequenceFile(sequenceArray);
+
+            // Probably a better way to do this...
+            Console.WriteLine("\n\nHit any key to finish program.");
             Console.ReadLine();
 
         }
