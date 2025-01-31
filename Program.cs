@@ -6,17 +6,35 @@
         // Let's see if I can begin abtracting a validator function to make these do...while loops a bit easier to look at and code. 
         public static bool validateInterger (string userInput, out int value)
         {
-            //if (int.TryParse(userInput, out value) && value > 0)
-            //{
-            //    return true;
-            //} else
-            //{
-            //    return false;
-            //}
-
+            // Yay ternary!
             return int.TryParse(userInput, out value) && value > 0 ? true : false;
         }
+
+        // Try to make a function to generate an array fom the positiveIntergers[] used later
+        static int[] fillSequenceArray(params int[] positiveIntegers)
+        {
+            Console.WriteLine(positiveIntegers[0]);
+            Console.WriteLine(positiveIntegers[1]);
+
+            // calculate the difference + 1 to include all numbers
+            int calculatedRange = positiveIntegers[1] - positiveIntegers[0] + 1;
+            // declare an array of length = calculatedDifference
+            int[] sequenceArray = new int[calculatedRange];
+
+            // use a for loop to populate the array
+            for (int i = 0; i < calculatedRange; i++)
+            {
+                sequenceArray[i] = positiveIntegers[0] + i;
+            }
+
+            Console.WriteLine(string.Join(", ", sequenceArray));
+            
+
+            return sequenceArray;
+        }
         
+
+
 
         static void Main(string[] args)
         {
@@ -119,6 +137,13 @@
                 }
 
             } while (!isPosInt || !isHigherThanLow);
+
+
+            int[] test = fillSequenceArray(positiveIntegers);
+
+            Console.WriteLine("checked thing");
+            Console.ReadLine();
+
         }
     }
 }
