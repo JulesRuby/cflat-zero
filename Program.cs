@@ -98,7 +98,6 @@ namespace Lab0ConsoleApp
             //PART 2
             // insert task 2 variables with validation checks here
             int[] positiveIntegers = { 0, 0 };
-            positiveIntegers[0] = 1;
             int positiveInteger = 0;
             bool isPosInt = false;
             bool isHigherThanLow = false;
