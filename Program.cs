@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+//using System.IO;
 
 namespace Lab0ConsoleApp
 {
@@ -29,8 +30,14 @@ namespace Lab0ConsoleApp
             return sequenceArray;
         }
 
-        static void writeReverseSequenceFile(int[] sequence, string filePath = "numbers.txt")
+        static void writeReverseSequenceFile(int[] sequence, string fileName = "numbers.txt")
         {
+            // Alright, let's try actually making this relative path thing work
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory; // I think this should provide the baseDir for the xcompiled exec
+            string outputDirectory = Path.Combine(baseDirectory, "fileOutput"); // Let's try to control an output dir for these files to write to
+            Directory.CreateDirectory(outputDirectory); // This should create the dir if it does not exist
+            string filePath = Path.Combine(outputDirectory, fileName); // This should resolve to the complete filePath depending on if a non-default filename is passed in
+
             // I want to use foreach forFUN so I'm just doing this instead of counting backward through a standard for loop
             Array.Reverse(sequence);
 
@@ -55,6 +62,15 @@ namespace Lab0ConsoleApp
 
         static void Main(string[] args)
         {
+
+            //Console.WriteLine(Assembly.Location);
+            Console.WriteLine(Directory.GetCurrentDirectory());
+            Console.WriteLine(Environment.CurrentDirectory);
+            Console.WriteLine(AppDomain.CurrentDomain.BaseDirectory);
+            Console.WriteLine(Path.GetFullPath("output.txt"));
+            
+            Console.ReadLine();
+
             // PART 1
             string? lowInput = String.Empty;
             string? highInput = String.Empty;
